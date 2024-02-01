@@ -15,12 +15,10 @@ model User {
   telephone  String
   email      String
   picture    String
-  appointment_id String
   created_at DateTime?  @default(now())
   updated_at DateTime?  @default(now())
 
-  appointment  Appointment       @relation(fields: [appointment_id], references: [id])
-
+  appointment  Appointment[]
   pet       Pet[]
 
   @@map("users")
@@ -36,13 +34,12 @@ model Pet {
   user_id    String        // chave estrangeira para User
   breed_id   String        // chave estrangeira para Breed
   species_id String        // chave estrangeira para Species
-  appointment_id String
   color      String
   
   user       User         @relation(fields: [user_id], references: [id])
   breed      Breed        @relation(fields: [breed_id], references: [id])
   species    Species       @relation(fields: [species_id], references: [id])
-  appointment  Appointment       @relation(fields: [appointment_id], references: [id])
+  appointment  Appointment[]
   allergy   PetAllergy[]
   vaccine   PetVaccine[]  
   disease   PetDisease[]

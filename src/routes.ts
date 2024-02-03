@@ -8,6 +8,7 @@ import { CreatePetController } from "./controllers/Pet/CreatePetController";
 import { CreateBreedController } from "./controllers/Breed/CreateBreedController";
 import { CreateSpeciesController } from "./controllers/Species/CreateSpeciesController";
 import { CreateVaccineController } from "./controllers/Vaccine/CreateVaccineController";
+import { AddVaccineToPetController } from "./controllers/PetVaccine/AddVaccineToPetController";
 export const router = Router();
 
 const upload = multer(uploadConfig.upload(("./tmp")));
@@ -24,3 +25,5 @@ router.post("/adicionarraca", Authenticated, new CreateBreedController().handle)
 router.post("/adicionarespecie", Authenticated, new CreateSpeciesController().handle);
 
 router.post("/adicionarvacina", Authenticated, new CreateVaccineController().handle)
+
+router.post("/petvaccine", Authenticated, new AddVaccineToPetController().handle)

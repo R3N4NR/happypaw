@@ -119,6 +119,7 @@ model PetVaccine {
   pet_id      String    // chave estrangeira para Pet
   vaccine     Vaccine  @relation(fields: [vaccine_id], references: [id])
   vaccine_id  String    // chave estrangeira para Vaccines
+  dose        Int
   assignedAt  DateTime  @default(now())
   assignedBy  String
   created_at DateTime?  @default(now())

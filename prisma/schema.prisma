@@ -16,6 +16,7 @@ model User {
   telephone  String
   email      String
   picture    String
+  role       String
   created_at DateTime?  @default(now())
   updated_at DateTime?  @default(now())
 
@@ -76,11 +77,14 @@ model Appointment {
   start_time DateTime //'2024-02-01 12:30:00'
   end_time   DateTime
   status Boolean
-  user User[]
-  pet  Pet[]
+  type String
+  user_id String
+  pet_id String
   created_at DateTime?  @default(now())
   updated_at DateTime?  @default(now())
 
+  user User @relation(fields: [user_id], references: [id])
+  pet Pet @relation(fields: [pet_id], references: [id])
   @@map("appointment")
 }
 
@@ -135,6 +139,7 @@ model PetDisease{
   disease_id String
   assignedAt  DateTime  @default(now())
   assignedBy  String
+  healed Boolean
   created_at DateTime?  @default(now())
   updated_at DateTime?  @default(now())
 

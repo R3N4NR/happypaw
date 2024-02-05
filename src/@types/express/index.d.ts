@@ -5,5 +5,6 @@ declare namespace Express{
         species_id: string;
         vaccine_id: string;
         pet_id: string;
+        role: string;
     }
 }

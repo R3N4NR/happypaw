@@ -7,7 +7,7 @@ class CreateUserController{
     async handle(req: Request, res: Response){
         const createUserService = new CreateUserService();
 
-        const {name, email,password,points,surname,telephone} = req.body
+        const {name, email,password, role, points,surname,telephone} = req.body
 
         try{
             if(!req.file){
@@ -20,6 +20,7 @@ class CreateUserController{
             email,
             password,
             picture,
+            role,
             points,
             telephone,
         })

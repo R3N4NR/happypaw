@@ -22,14 +22,19 @@ class AuthUserService{
 
         const passwordMatch =await  compare(password, user.password)
         
+        const role = Object.values(user.role)
+
         if(!passwordMatch){
             throw new Error("E-mail ou senha incorretos")
         }
 
         const token = sign(
-            {
+            {   
+                
                 name: user.name,
-                email:user.email
+                email:user.email,
+                role: user.role
+                
             },
             process.env.JWT_SECRET,
             {
@@ -42,6 +47,7 @@ class AuthUserService{
             id: user.id,
             name: user.name,
             email: user.email,
+            role: user.role,
             token: token,
         }
     }

@@ -5,11 +5,11 @@ class CreateAppointmentController{
 
     async handle(req:Request, res: Response){
         
-        const {start_time, end_time, status, type} = req.body;
+        const {start_time, user_id, pet_id, end_time, status, type} = req.body;
 
         const createService = new CreateAppointmentService();
 
-        const appointment = await createService.execute({start_time,end_time, status, type});
+        const appointment = await createService.execute({start_time, user_id, pet_id, end_time, status, type});
 
         return res.json(appointment);
     }

@@ -159,4 +159,12 @@ model PetAllergy{
   @@id([pet_id, allergy_id])
 }
 
+model Role{
+  id String @id @default(uuid())
+  title String
+  created_At DateTime? @default(now())
+  updated_At DateTime? @default(now())
+
+}
+
 

@@ -17,6 +17,7 @@ import AuthenticatedRoles from './middlewares/AuthenticatedRoles';
 import { DeleteUserController } from "./controllers/User/DeleteUserController";
 import { GetAllUsersController } from "./controllers/User/GetAllUsersController";
 import { UpdateUserController } from "./controllers/User/UpdateUserController";
+import { UserDetailController } from "./controllers/User/UserDetailService";
 
 export const router = Router();
 
@@ -54,6 +55,7 @@ router.delete("/deleteuser", AuthenticatedRoles(['admin', 'basic']), new DeleteU
 //ROTAS GET
 
 router.get("/listuser", AuthenticatedRoles(['admin']), new GetAllUsersController().handle)
+router.get("/me", AuthenticatedRoles(['admin', 'basic', 'vet']), new UserDetailController().handle)
 
 //ROTAS PUT
 

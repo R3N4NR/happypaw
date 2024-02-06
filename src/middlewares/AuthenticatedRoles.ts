@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from 'jsonwebtoken';
+import statusCodeHTTP from "../utils/helpers/statusCodeHTTP";
 
 interface PayLoad {
     sub: string;
@@ -24,7 +25,7 @@ const AuthenticatedRoles = (allowedRoles: string[]) => {
             const intersection = allowedRoles.filter(role => roles.includes(role));
 
             if (intersection.length === 0) {
-                return res.status(403).end();
+                res.status(statusCodeHTTP('UNAUTHORIZED')).end();
             }
 
             req.user_id = sub;

@@ -1,7 +1,6 @@
 import { hash } from "bcryptjs";
 import { UserProps } from '../../models/interfaces/UserProps';
 import prismaClient  from "../../prisma/prismaClient";
-import { ROLE } from "../../config/UserRoles";
 
 class CreateUserService{
 

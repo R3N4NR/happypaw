@@ -14,11 +14,15 @@ import { AddDiseaseToPetController } from "./controllers/PetDisease/AddDiseaseTo
 import { AddAllergyToPetController } from "./controllers/PetAllergy/AddAllergyToPetController";
 import { CreateAppointmentController } from "./controllers/Appointment/CreateAppointmentController";
 import AuthenticatedRoles from './middlewares/AuthenticatedRoles';
+import { DeleteUserController } from "./controllers/User/DeleteUserController";
+import { GetAllUsersController } from "./controllers/User/GetAllUsersController";
+import { UpdateUserController } from "./controllers/User/UpdateUserController";
 
 export const router = Router();
 
 const upload = multer(uploadConfig.upload(("./tmp")));
 
+//ROTAS POST
 router.post("/criarconta", upload.single('file'), new CreateUserController().handle)
 
 router.post("/login", new AuthUserController().handle )
@@ -42,3 +46,15 @@ router.post("/petdisease", AuthenticatedRoles(['admin', 'basic']), new AddDiseas
 router.post("/petallergy", AuthenticatedRoles(['admin', 'basic']), new AddAllergyToPetController().handle);
 
 router.post("/agendar", AuthenticatedRoles(['admin', 'basic']), new CreateAppointmentController().handle);
+
+//ROTAS DELETE
+
+router.delete("/deleteuser", AuthenticatedRoles(['admin', 'basic']), new DeleteUserController().handle)
+
+//ROTAS GET
+
+router.get("/listuser", AuthenticatedRoles(['admin']), new GetAllUsersController().handle)
+
+//ROTAS PUT
+
+router.put("/updateuser", upload.single('file'), new UpdateUserController().handle)

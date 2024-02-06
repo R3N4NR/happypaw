@@ -76,7 +76,7 @@ model Appointment {
   id String @id @default(uuid())
   start_time DateTime 
   end_time   DateTime
-  status Boolean
+  status Boolean @default(false)
   type String
   user_id String
   pet_id String

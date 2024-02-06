@@ -19,8 +19,6 @@ const AuthenticatedRoles = (allowedRoles: string[]) => {
         try {
             const decodedToken = verify(token, process.env.JWT_SECRET) as PayLoad;
 
-            console.log("Decoded Token =>", decodedToken);
-
             const { sub, roles } = decodedToken;
         
             const intersection = allowedRoles.filter(role => roles.includes(role));

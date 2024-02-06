@@ -23,22 +23,22 @@ router.post("/criarconta", upload.single('file'), new CreateUserController().han
 
 router.post("/login", new AuthUserController().handle )
 
-router.post("/adicionarpet", AuthenticatedRoles(['admin', 'rewpoirweop']), upload.single('file'), new CreatePetController().handle)
+router.post("/adicionarpet", AuthenticatedRoles(['admin', 'basic']), upload.single('file'), new CreatePetController().handle)
 
-// router.post("/adicionarraca", AuthenticatedAdmin, new CreateBreedController().handle);
+router.post("/adicionarraca", AuthenticatedRoles(['admin']), new CreateBreedController().handle);
 
-// router.post("/adicionarespecie", AuthenticatedAdmin, new CreateSpeciesController().handle);
+router.post("/adicionarespecie", AuthenticatedRoles(['admin']), new CreateSpeciesController().handle);
 
-// router.post("/adicionarvacina", AuthenticatedAdmin, new CreateVaccineController().handle);
+router.post("/adicionarvacina", AuthenticatedRoles(['admin']), new CreateVaccineController().handle);
 
-// router.post("/adicionardoenca", AuthenticatedAdmin, new CreateDiseaseController().handle);
+router.post("/adicionardoenca", AuthenticatedRoles(['admin']), new CreateDiseaseController().handle);
 
-// router.post("/adicionaralergia", AuthenticatedAdmin, new CreateAllergyController().handle);
+router.post("/adicionaralergia", AuthenticatedRoles(['admin']), new CreateAllergyController().handle);
 
-// router.post("/petvaccine", AuthenticatedAdmin,AuthenticatedBasic, new AddVaccineToPetController().handle);
+router.post("/petvaccine", AuthenticatedRoles(['admin', 'basic']), new AddVaccineToPetController().handle);
 
-// router.post("/petdisease", AuthenticatedAdmin,AuthenticatedBasic, new AddDiseaseToPetController().handle)
+router.post("/petdisease", AuthenticatedRoles(['admin', 'basic']), new AddDiseaseToPetController().handle)
 
-// router.post("/petallergy", AuthenticatedAdmin,AuthenticatedBasic, new AddAllergyToPetController().handle);
+router.post("/petallergy", AuthenticatedRoles(['admin', 'basic']), new AddAllergyToPetController().handle);
 
-// router.post("/agendar", AuthenticatedAdmin,AuthenticatedBasic, new CreateAppointmentController().handle);
+router.post("/agendar", AuthenticatedRoles(['admin', 'basic']), new CreateAppointmentController().handle);

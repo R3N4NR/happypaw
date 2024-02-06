@@ -16,7 +16,7 @@ model User {
   telephone  String
   email      String
   picture    String
-  role       String
+  role       UserRole[]
   created_at DateTime?  @default(now())
   updated_at DateTime?  @default(now())
 
@@ -74,7 +74,7 @@ model Species {
 model Appointment {
 
   id String @id @default(uuid())
-  start_time DateTime //'2024-02-01 12:30:00'
+  start_time DateTime 
   end_time   DateTime
   status Boolean
   type String
@@ -162,9 +162,23 @@ model PetAllergy{
 model Role{
   id String @id @default(uuid())
   title String
+  user UserRole[]
   created_At DateTime? @default(now())
   updated_At DateTime? @default(now())
 
+}
+
+model UserRole{
+  user User @relation(fields: [user_id], references: [id])
+  user_id String
+  role Role @relation(fields: [role_id], references: [id])
+  role_id String
+  assignedAt  DateTime  @default(now())
+  assignedBy  String
+  created_at DateTime?  @default(now())
+  updated_at DateTime?  @default(now())
+
+  @@id([user_id, role_id])
 }
 
 

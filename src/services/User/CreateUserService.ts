@@ -1,11 +1,11 @@
 import { hash } from "bcryptjs";
-import { UserProps } from "../../models/interfaces/UserProps";
+import { UserProps } from '../../models/interfaces/UserProps';
 import prismaClient  from "../../prisma/prismaClient";
 import { ROLE } from "../../config/UserRoles";
 
 class CreateUserService{
 
-    async execute({name,email, password,picture,role,points,surname,telephone}: UserProps){
+    async execute({name,email, password, roles, picture,points,surname,telephone}: UserProps){
 
         const passwordHash = await hash(password, 8)
         
@@ -27,8 +27,9 @@ class CreateUserService{
             points = 0;
         }
         
-    
+        
         try{
+
         const user = await prismaClient.user.create({
             data:{
                 name: name,
@@ -36,7 +37,18 @@ class CreateUserService{
                 password: passwordHash,
                 picture: picture,
                 points: points,
-                role: role.toLowerCase() ,
+                role: {
+                    create: roles.map((role) => {
+                      return {
+                        role: {
+                          connect: {
+                            id: role,
+                          },
+                        },
+                        assignedBy: email, // Assigning user ID or email who is assigning the role
+                      };
+                    }),
+                  } ,
                 surname: surname,
                 telephone: telephone,
             },

@@ -2,7 +2,6 @@ import { Router } from "express";
 import uploadConfig from "./config/multer";
 import multer from "multer";
 import { CreateUserController } from "./controllers/User/CreateUserController";
-import Authenticated from "./middlewares/AuthenticatedBasic";
 import { AuthUserController } from "./controllers/User/AuthUserController";
 import { CreatePetController } from "./controllers/Pet/CreatePetController";
 import { CreateBreedController } from "./controllers/Breed/CreateBreedController";
@@ -14,8 +13,8 @@ import { CreateAllergyController } from "./controllers/Allergy/CreateAllergyCont
 import { AddDiseaseToPetController } from "./controllers/PetDisease/AddDiseaseToPetController";
 import { AddAllergyToPetController } from "./controllers/PetAllergy/AddAllergyToPetController";
 import { CreateAppointmentController } from "./controllers/Appointment/CreateAppointmentController";
-import { CheckRoleAdmin } from "./middlewares/CheckRoleAdmin";
-import AuthenticatedAdmin from "./middlewares/AuthenticatedAdmin";
+import AuthenticatedRoles from './middlewares/AuthenticatedRoles';
+
 export const router = Router();
 
 const upload = multer(uploadConfig.upload(("./tmp")));
@@ -24,22 +23,22 @@ router.post("/criarconta", upload.single('file'), new CreateUserController().han
 
 router.post("/login", new AuthUserController().handle )
 
-router.post("/adicionarpet", Authenticated, upload.single('file'), new CreatePetController().handle)
+router.post("/adicionarpet", AuthenticatedRoles(['admin', 'rewpoirweop']), upload.single('file'), new CreatePetController().handle)
 
-router.post("/adicionarraca", AuthenticatedAdmin, new CreateBreedController().handle);
+// router.post("/adicionarraca", AuthenticatedAdmin, new CreateBreedController().handle);
 
-router.post("/adicionarespecie", Authenticated, new CreateSpeciesController().handle);
+// router.post("/adicionarespecie", AuthenticatedAdmin, new CreateSpeciesController().handle);
 
-router.post("/adicionarvacina", Authenticated, new CreateVaccineController().handle);
+// router.post("/adicionarvacina", AuthenticatedAdmin, new CreateVaccineController().handle);
 
-router.post("/adicionardoenca", Authenticated, new CreateDiseaseController().handle);
+// router.post("/adicionardoenca", AuthenticatedAdmin, new CreateDiseaseController().handle);
 
-router.post("/adicionaralergia", Authenticated, new CreateAllergyController().handle);
+// router.post("/adicionaralergia", AuthenticatedAdmin, new CreateAllergyController().handle);
 
-router.post("/petvaccine", Authenticated, new AddVaccineToPetController().handle);
+// router.post("/petvaccine", AuthenticatedAdmin,AuthenticatedBasic, new AddVaccineToPetController().handle);
 
-router.post("/petdisease", Authenticated, new AddDiseaseToPetController().handle)
+// router.post("/petdisease", AuthenticatedAdmin,AuthenticatedBasic, new AddDiseaseToPetController().handle)
 
-router.post("/petallergy", Authenticated, new AddAllergyToPetController().handle);
+// router.post("/petallergy", AuthenticatedAdmin,AuthenticatedBasic, new AddAllergyToPetController().handle);
 
-router.post("/agendar", Authenticated, new CreateAppointmentController().handle);
+// router.post("/agendar", AuthenticatedAdmin,AuthenticatedBasic, new CreateAppointmentController().handle);

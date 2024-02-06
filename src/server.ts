@@ -3,10 +3,18 @@ import "express-async-errors";
 import cors from 'cors';
 import path from "path"
 import { router } from './routes';
+import { Pool } from 'pg';
 
 const port = 3333;
 const app = express();
-
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'happypaw',
+    password: '1234',
+    port: 5432,
+  });
+  
 app.use(express.json());
 
 app.use(cors());
@@ -29,11 +37,7 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
     })
 })
 
-app.listen(port, () => {
-    console.log(`Server rodando na porta : (${port})`)
-})
+app.listen(port, async () => {
+    console.log(`Server rodando na porta : (${port})`);
 
-app.use((req, res, next) => {
-    console.log('Nome completo da rota:', req.url);
-    next();
-  });
+})

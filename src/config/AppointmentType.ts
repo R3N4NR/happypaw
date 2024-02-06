@@ -1,0 +1,5 @@
+export const APPOINTMENTTYPE = {
+
+    BATH: "BATH",
+    CONSULTATION : "CONSULTATION"
+}

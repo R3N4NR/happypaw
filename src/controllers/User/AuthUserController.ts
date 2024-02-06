@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AuthUserService } from '../../services/User/AuthUserService';
 import determinePermissions from '../../utils/determinePermissions';
+import prismaClient from '../../prisma/prismaClient';
 
 class AuthUserController {
     async handle(req: Request, res: Response) {
@@ -14,18 +15,11 @@ class AuthUserController {
                 password,
             });
 
-            // Adicionar lógica para conceder permissões com base nas roles
-            const permissions = determinePermissions(auth.role);
-
-            // Adicionando as permissões ao objeto do usuário
-            auth.role = permissions;
-
             return res.json(auth);
         } catch (error) {
             return res.status(401).json({ error: error.message });
         }
     }
-
 }
 
 export { AuthUserController };

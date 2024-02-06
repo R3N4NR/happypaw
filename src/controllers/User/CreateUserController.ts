@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserService } from "../../services/User/CreateUserService";
+import { ROLE } from "../../config/UserRoles";
 
 
 class CreateUserController{
@@ -7,8 +8,11 @@ class CreateUserController{
     async handle(req: Request, res: Response){
         const createUserService = new CreateUserService();
 
-        const {name, email,password, role, points,surname,telephone} = req.body
+        const {name, email,password, role_ids, points,surname,telephone} = req.body
+        
+       const roles = await role_ids.split(',');
 
+       
         try{
             if(!req.file){
                 throw new Error("Você enviar uma imagem")
@@ -20,7 +24,7 @@ class CreateUserController{
             email,
             password,
             picture,
-            role,
+            roles,
             points,
             telephone,
         })
